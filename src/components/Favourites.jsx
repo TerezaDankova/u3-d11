@@ -2,7 +2,7 @@ import { Container, Row, Col, ListGroup, ListGroupItem, Button } from "react-boo
 import { connect } from "react-redux";
 import { removeFromFav } from "../redux/actions";
 
-const mapStateToProps = state => state
+const mapStateToProps = state => { return state.favourites }
   
 const mapDispatchToProps = (dispatch) => ({
   removeFromFav: (JOB) => {

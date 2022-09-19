@@ -4,7 +4,9 @@ import { Star, StarFill } from "react-bootstrap-icons";
 import { addToFav, removeFromFav } from "../redux/actions";
 import { connect } from "react-redux";
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => {
+  return state.favourites
+};
 
 const mapDispatchToProps = (dispatch) => ({
   addToFavourites: indexToAdd => {
@@ -16,7 +18,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Job = ({ data, favourites, addToFavourites, onClickAgainRemoveClass }) => {
-      
   const isFav = favourites.includes(data.company_name);
   
   const toggleFavourite = () => {

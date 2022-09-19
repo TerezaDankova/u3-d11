@@ -1,33 +1,16 @@
 import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getJobsAction } from "../redux/actions";
 import Job from "./Job";
+import { connect } from "react-redux";
 
-const MainSearch = () => {
+const mapStateToProps = state => { 
+  return state.jobs 
+}
+
+const MainSearch = ({ jobs, dispatch }) => {
   const [query, setQuery] = useState("");
-  const [jobResults, setJobResults] = useState([]);
-
-  // const fetchJobs = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://strive-jobs-api.herokuapp.com/jobs?search=${query}`
-  //     );
-  //     if (response.ok) {
-  //       const data = await response.json();
-
-  //       console.log(data);
-  //       setJobResults(data.data);
-  //       console.log(jobResults);
-  //     } else {
-  //       console.log("Error");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,8 +45,8 @@ const MainSearch = () => {
           </Form>
         </Col>
         <Col md={8} className="">
-          {jobResults &&
-            jobResults.map((jobData) => (
+          {jobs &&
+            jobs.map((jobData) => (
               <Job key={jobData._id} data={jobData} />
             ))}
         </Col>
@@ -72,4 +55,4 @@ const MainSearch = () => {
   );
 };
 
-export default (MainSearch);
+export default connect(mapStateToProps)(MainSearch);
