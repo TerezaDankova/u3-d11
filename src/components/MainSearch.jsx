@@ -1,35 +1,37 @@
 import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getJobsAction } from "../redux/actions";
 import Job from "./Job";
 
 const MainSearch = () => {
   const [query, setQuery] = useState("");
-
   const [jobResults, setJobResults] = useState([]);
 
-  const fetchJobs = async () => {
-    try {
-      const response = await fetch(
-        `https://strive-jobs-api.herokuapp.com/jobs?search=${query}`
-      );
-      if (response.ok) {
-        const data = await response.json();
+  // const fetchJobs = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://strive-jobs-api.herokuapp.com/jobs?search=${query}`
+  //     );
+  //     if (response.ok) {
+  //       const data = await response.json();
 
-        console.log(data);
-        setJobResults(data.data);
-        console.log(jobResults);
-      } else {
-        console.log("Error");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //       console.log(data);
+  //       setJobResults(data.data);
+  //       console.log(jobResults);
+  //     } else {
+  //       console.log("Error");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetchJobs();
+    dispatch(getJobsAction(query));
   };
 
   const handleChange = (e) => {
@@ -70,4 +72,4 @@ const MainSearch = () => {
   );
 };
 
-export default MainSearch;
+export default (MainSearch);
