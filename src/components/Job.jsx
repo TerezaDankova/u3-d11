@@ -10,18 +10,18 @@ const mapDispatchToProps = (dispatch) => ({
   addToFavourites: indexToAdd => {
         dispatch(addToFav(indexToAdd))
       },
-  removeFromFavourites: indexToRemove => {
+  onClickAgainRemoveClass: indexToRemove => {
         dispatch(removeFromFav(indexToRemove))
       },
 });
 
-const Job = ({ data, favourites, addToFavourites, removeFromFavourites }) => {
+const Job = ({ data, favourites, addToFavourites, onClickAgainRemoveClass }) => {
       
   const isFav = favourites.includes(data.company_name);
   
   const toggleFavourite = () => {
     isFav
-      ? removeFromFavourites(data.company_name)
+      ? onClickAgainRemoveClass(data.company_name)
       : addToFavourites(data.company_name);
   };
 
@@ -31,7 +31,6 @@ const Job = ({ data, favourites, addToFavourites, removeFromFavourites }) => {
       style={{ border: "1px solid #00000033", borderRadius: 4 }}>
       <Col xs={3} className="d-flex">
         <Link to={`/${data.company_name}`} style={{color: "grey"}}>{data.company_name}</Link>
-        
       </Col>
       <Col xs={8}>
         <Link to={{ pathname: data.url }} target="_blank" style={{color: "grey"}}>
@@ -48,7 +47,7 @@ const Job = ({ data, favourites, addToFavourites, removeFromFavourites }) => {
           />
         ) : (
           <Star
-            color="gold"
+            color="green"
             size={16}
             className="me-4 my-auto"
             onClick={toggleFavourite}

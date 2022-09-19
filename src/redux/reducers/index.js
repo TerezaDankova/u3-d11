@@ -1,16 +1,19 @@
+import { ADD_TO_FAV, REMOVE_FROM_FAV } from "../actions";
+
+
 const initialState = {
       favourites: [],
     };
     
     const mainReducer = (state = initialState, action) => {
       switch (action.type) {
-        case "ADD_TO_FAV":
+        case ADD_TO_FAV:
           return {
             ...state,
             favourites: [...state.favourites, action.payload],
           };
     
-        case "REMOVE_FROM_FAV":
+        case REMOVE_FROM_FAV:
           return {
             ...state,
             favourites: state.favourites.filter((company) => company !== action.payload),
