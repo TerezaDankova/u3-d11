@@ -12,7 +12,7 @@ export const removeFromFav = (company) => ({
   payload: company,
 });
 
-export const getJobsAction = (query) => {
+export const addToFavoritesWithThunk = (query) => {
   return async (dispatch) => {
     try {
       const response = await fetch(`https://strive-jobs-api.herokuapp.com/jobs?search=${query}`);

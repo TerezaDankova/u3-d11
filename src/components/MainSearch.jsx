@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getJobsAction } from "../redux/actions";
+import { addToFavoritesWithThunk} from "../redux/actions";
 import Job from "./Job";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const mapStateToProps = state => { 
-  return state.jobs 
-}
 
-const MainSearch = ({ jobs, dispatch }) => {
+const MainSearch = () => {
+
   const [query, setQuery] = useState("");
+
+  const selectorJobs = useSelector(state => state.jobs)
+
+  const dispatch = useDispatch()
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(getJobsAction(query));
+    dispatch(addToFavoritesWithThunk(query));
   };
 
   const handleChange = (e) => {
@@ -45,8 +47,8 @@ const MainSearch = ({ jobs, dispatch }) => {
           </Form>
         </Col>
         <Col md={8} className="">
-          {jobs &&
-            jobs.map((jobData) => (
+          {selectorJobs &&
+            selectorJobs.map((jobData) => (
               <Job key={jobData._id} data={jobData} />
             ))}
         </Col>
@@ -55,4 +57,4 @@ const MainSearch = ({ jobs, dispatch }) => {
   );
 };
 
-export default connect(mapStateToProps)(MainSearch);
+export default MainSearch;
